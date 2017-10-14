@@ -6,18 +6,17 @@ import sys
 
 pygame.init()
 
-def createNewSprite(xPosition, yPosition, width, height, imagePath, imageX, imageY, imageWidth, imageHeigth):
-	newSprite = pygame.sprite.Sprite()
-	newSprite.image = pygame.transform.scale(pygame.image.load(imagePath), (width, height))
-	newSprite.rect = pygame.Rect((xPosition, yPosition), (width, height))
-
-	return newSprite
+def getSprite(sheet, spriteLocation):
+	rect = pygame.Rect(spriteLocation.x, 
+		spriteLocation.y, spriteLocation.width, spriteLocation.height)
+	sheet.set_clip(rect)
+	return sheet.subsurface(sheet.get_clip())
 
 screen = pygame.display.set_mode((600, 360))
 pygame.display.set_caption("CircusCharliePY")
 
-__resourcePath = os.path.join('CircusCharliePY', 'bin', 'resources')
-path = os.path.join(__resourcePath, 'CircusCharlieSprite.gif')
+__resourcePath = os.path.join('bin', 'resources')
+path = os.path.join(os.getcwd(), __resourcePath, 'CircusCharlieSprite.gif')
 
 sheet = pygame.image.load(path) #Load the sheet
 
